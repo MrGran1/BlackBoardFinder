@@ -16,6 +16,20 @@ def comparerPixel(img,pixel1,pixel2):
 
     if (intensité<50):
         return True
-        
+
     else:
         return False    
+
+    
+def griserPixel(img,pixel):
+    """
+    Grise un pixel
+    param:
+    img : numpy array qui represente une image
+    pixel : tuple (x,y) representant les coordoonée d'un pixel
+    return void
+    """
+    x,y = pixel
+    for i in range(3):
+        img[x][y][i] = 0.5*img[x][y][i] 
+
