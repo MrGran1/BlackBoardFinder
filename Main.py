@@ -17,7 +17,7 @@ def comparerPixel(img,pixel1,pixel2):
     for i in range(3):
         intensite += abs(img[y1-1][x1-1][i]-img[y2-1][x2-1][i])
 
-    if (intensite<50):
+    if (intensite<25):
         return True
 
     else:
