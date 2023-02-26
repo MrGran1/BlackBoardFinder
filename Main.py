@@ -62,7 +62,7 @@ def delimitationImage (img):
 
     return imgFinale
 
-img = pltimg.imread("./17.jpg")
+img = pltimg.imread(r"D:\Dossier_chelou\Users\kelli\Documents\GitHub\Projet-Image-Suicide-Squad-/17.jpg")
 
 finale = delimitationImage(img)
 plt.imshow(finale,cmap ='gray')
