@@ -100,7 +100,11 @@ def delimitationImage (img):
 
     return imgFinale
 
+<<<<<<< HEAD
 img = pltimg.imread("./train/51.jpg")
+=======
+img = pltimg.imread(r"D:\Dossier_chelou\Users\kelli\Documents\GitHub\Projet-Image-Suicide-Squad-/17.jpg")
+>>>>>>> refs/remotes/origin/main
 
 #finale = delimitationImage(img)
 convGris(img)
