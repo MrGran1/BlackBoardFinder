@@ -21,8 +21,46 @@ def comparerPixel(img,pixel1,pixel2):
         return True
 
     else:
-        return False    
+        return False 
 
+
+def convGris(img):
+    """Convertit une image en niveau de gris
+    param : 
+    img : numpy array qui represente une image
+    """
+    n = np.zeros((img.shape[0],img.shape[1]),dtype = np.uint8)
+    for x in range(img.shape[0]):
+
+        for y in range(img.shape[1]):
+            r = img[x,y][0]
+            g = img[x,y][1]
+            b = img[x,y][2]
+
+            l = (int(r)+int(g)+int(b))/3
+
+            n[x,y]= l
+    img = n
+
+
+def seuil(img,seuil1,seuil2):
+    """Effectue un seuillage sur une image 
+    param : 
+    img : numpy array qui represente une image
+    seuil 1/2 : seuil entre lequel les pixels seront blanc 
+    
+    """
+
+    if (seuil1 > seuil2):
+        seuil1,seuil2 = seuil2,seuil1
+
+    for x in range(img.shape[0]):
+        for y in range(img.shape[1]):
+            if img[x,y,0] <= seuil2 and img[x,y,0] >= seuil1 :
+                img[x,y]= [255,255,255]
+            
+            else :
+                img[x,y] = [0,0,0]
     
 def griserPixel(img,pixel):
     """
@@ -62,8 +100,10 @@ def delimitationImage (img):
 
     return imgFinale
 
-img = pltimg.imread("./17.jpg")
+img = pltimg.imread("./train/51.jpg")
 
-finale = delimitationImage(img)
-plt.imshow(finale,cmap ='gray')
+#finale = delimitationImage(img)
+convGris(img)
+seuil(img,180, 230)
+plt.imshow(img,cmap ='gray')
 plt.show()
