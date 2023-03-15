@@ -56,20 +56,20 @@ def seuil(img,seuil1,seuil2):
 
     for x in range(img.shape[0]):
         for y in range(img.shape[1]):
-            if img[x,y,0] <= seuil2 and img[x,y,0] >= seuil1 :
-                img[x,y]= [255,255,255]
+            if img[x,y] <= seuil2 and img[x,y] >= seuil1 :
+                img[x,y]= 255
             
             else :
-                img[x,y] = [0,0,0]
+                img[x,y] = 0
 
 def seuilCentre(img):
     """ Effectue un seuillage sur une image en fonction de la moyenne des pixels du centre de l'image
     param :
     img : numpy array qui represente une image
     """
-
-    seuil1=getCouleurCentre(img)+20
-    seuil2=getCouleurCentre(img)-20
+    couleur = getCouleurCentre(img)
+    seuil1= couleur + 30
+    seuil2=couleur - 30
 
     seuil(img,seuil1,seuil2)
 
@@ -150,11 +150,12 @@ def getCouleurCentre(img):
     return couleurMax 
                     
 
-img = pltimg.imread("./train/53.jpg")
+img = pltimg.imread("./train/51.jpg")
 
 #finale = delimitationImage(img)
 gris = convGris(img)
-print (getCouleurCentre(gris))
-#seuil(img,160, 190)
-#plt.imshow(img,cmap ='gray')
-#plt.show()
+
+seuilCentre(gris)
+
+plt.imshow(gris,cmap ='gray')
+plt.show()
