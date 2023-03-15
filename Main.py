@@ -40,7 +40,7 @@ def convGris(img):
             l = (int(r)+int(g)+int(b))/3
 
             n[x,y]= l
-    img = n
+    return n
 
 
 def seuil(img,seuil1,seuil2):
@@ -100,14 +100,48 @@ def delimitationImage (img):
 
     return imgFinale
 
-<<<<<<< HEAD
-img = pltimg.imread("./train/51.jpg")
-=======
-img = pltimg.imread(r"D:\Dossier_chelou\Users\kelli\Documents\GitHub\Projet-Image-Suicide-Squad-/17.jpg")
->>>>>>> refs/remotes/origin/main
+def getCouleurCentre(img):
+    """ Récupère la couleur la plus dominante au centre de l'image pour récuperer la couleur du tableau"""
+    xcentre = int (img.shape[0]/2)
+    ycentre = int(img.shape[1]/2)
+    condition = False
+    max = -1
+    couleurMax = ""
+    nbCouleur = {}
+    for j in range (ycentre-250, ycentre + 250):
+        for i in range (xcentre-250, xcentre + 250):
+            condition = False
+
+            
+
+
+
+            for couleur in nbCouleur.keys():
+                if couleur >= img[j,i]-20 and couleur <= img[j,i] + 20 :
+                    nbCouleur[couleur] += 1
+                    condition = True
+                    break
+
+            if condition == False  :
+                nbCouleur[img[j,i]] = 1
+
+
+    for couleur in nbCouleur.keys():
+        
+        if nbCouleur[couleur] > max:
+            couleurMax = couleur
+            max = nbCouleur[couleur]
+    
+    
+    return couleurMax 
+                    
+
+ 
+img = pltimg.imread("./train/53.jpg")
 
 #finale = delimitationImage(img)
-convGris(img)
-seuil(img,180, 230)
-plt.imshow(img,cmap ='gray')
-plt.show()
+gris = convGris(img)
+print (getCouleurCentre(gris))
+#seuil(img,160, 190)
+#plt.imshow(img,cmap ='gray')
+#plt.show()
