@@ -61,6 +61,20 @@ def seuil(img,seuil1,seuil2):
             
             else :
                 img[x,y] = [0,0,0]
+
+def seuilCentre(img):
+    """ Effectue un seuillage sur une image en fonction de la moyenne des pixels du centre de l'image
+    param :
+    img : numpy array qui represente une image
+    """
+
+    seuil1=getCouleurCentre(img)+20
+    seuil2=getCouleurCentre(img)-20
+
+    seuil(img,seuil1,seuil2)
+
+
+
     
 def griserPixel(img,pixel):
     """
@@ -100,11 +114,7 @@ def delimitationImage (img):
 
     return imgFinale
 
-<<<<<<< HEAD
 img = pltimg.imread("./train/51.jpg")
-=======
-img = pltimg.imread(r"D:\Dossier_chelou\Users\kelli\Documents\GitHub\Projet-Image-Suicide-Squad-/17.jpg")
->>>>>>> refs/remotes/origin/main
 
 #finale = delimitationImage(img)
 convGris(img)
