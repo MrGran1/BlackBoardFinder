@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.image as pltimg
 import matplotlib.pyplot as plt
 
+
 def comparerPixel(img,pixel1,pixel2):
     """
     Compare deux pixels pour indiquer si ils sont presque de la même couleur
@@ -24,6 +25,7 @@ def comparerPixel(img,pixel1,pixel2):
         return False 
 
 
+
 def convGris(img):
     """Convertit une image en niveau de gris
     param : 
@@ -41,6 +43,7 @@ def convGris(img):
 
             n[x,y]= l
     return n
+
 
 
 def seuil(img,seuil1,seuil2):
@@ -62,6 +65,8 @@ def seuil(img,seuil1,seuil2):
             else :
                 img[x,y] = 0
 
+
+
 def seuilCentre(img):
     """ Effectue un seuillage sur une image en fonction de la moyenne des pixels du centre de l'image
     param :
@@ -72,7 +77,6 @@ def seuilCentre(img):
     seuil2=couleur - 30
 
     seuil(img,seuil1,seuil2)
-
 
 
     
@@ -87,6 +91,7 @@ def griserPixel(img,pixel):
     x,y = pixel
     for i in range(3):
         img[x][y][i] = 0.5*img[x][y][i] 
+
 
 
 def delimitationImage (img):
@@ -114,30 +119,28 @@ def delimitationImage (img):
 
     return imgFinale
 
+
+
 def getCouleurCentre(img):
     """ Récupère la couleur la plus dominante au centre de l'image pour récuperer la couleur du tableau"""
-    xcentre = int (img.shape[0]/2)
-    ycentre = int(img.shape[1]/2)
+    xcentre = int (img.shape[1]/2)  # avant : (img.shape[0]/2)
+    ycentre = int(img.shape[0]/2)   # avant : (img.shape[1]/2)
     condition = False
     max = -1
     couleurMax = ""
     nbCouleur = {}
-    for j in range (ycentre-250, ycentre + 250):
-        for i in range (xcentre-250, xcentre + 250):
+    for i in range (ycentre-250, ycentre + 250):       # avant : for j
+        for j in range (xcentre-250, xcentre + 250):   # avant : for i
             condition = False
 
-            
-
-
-
             for couleur in nbCouleur.keys():
-                if couleur >= img[j,i]-20 and couleur <= img[j,i] + 20 :
+                if couleur >= img[i,j]-20 and couleur <= img[i,j] + 20 :   # avant : [j,i]
                     nbCouleur[couleur] += 1
                     condition = True
                     break
 
             if condition == False  :
-                nbCouleur[img[j,i]] = 1
+                nbCouleur[img[i,j]] = 1    # avant : [j,i]
 
 
     for couleur in nbCouleur.keys():
@@ -148,14 +151,53 @@ def getCouleurCentre(img):
     
     
     return couleurMax 
-                    
 
-img = pltimg.imread("./train/51.jpg")
 
-#finale = delimitationImage(img)
-gris = convGris(img)
+def binarisationVT(img):
+    new_img = np.zeros((img.shape[0],img.shape[1]),dtype = np.uint8)
 
-seuilCentre(gris)
+    for i in range(img.shape[0]):
+        for j in range(img.shape[1]):
+            if img[i,j,0] > 0.1 or img[i,j,1] > 0.1:
+                new_img[i,j] = 255
+            else :
+                new_img[i,j] = 0
+    return new_img
 
-plt.imshow(gris,cmap ='gray')
-plt.show()
+
+
+def taux_reussite(img, vt):
+    total_pixel = img.shape[0]*img.shape[1]
+    pixel_correct = 0
+
+    for i in range(img.shape[0]):
+        for j in range(img.shape[1]):
+            if img[i,j] == vt[i,j] :
+                pixel_correct +=1
+
+    taux_reussite = (pixel_correct / total_pixel) * 100
+
+    return taux_reussite
+
+
+
+def main():
+    #SEGMENTATION ET BINARISATION DU TABLEAU-
+    img = pltimg.imread("./Images_Train_et_test/Entrainement_(57)/2.jpg")
+    gris = convGris(img)
+    seuilCentre(gris)
+    #-
+
+    #BINARISATION DE LA VERITE TERRAIN-
+    vt_img = pltimg.imread("./Json/JsonKellian/2VT/label.png")
+    vt_bin = binarisationVT(vt_img)
+    #-
+
+    #AFFICHAGE TAUX DE REUSSITE-
+    print("TAUX DE RÉUSSITE :", taux_reussite(gris, vt_bin))
+    #-
+
+    plt.imshow(gris, cmap ='gray')
+    plt.show()
+
+main()
