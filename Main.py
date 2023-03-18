@@ -72,7 +72,9 @@ def seuilCentre(img):
     param :
     img : numpy array qui represente une image
     """
+    #On récupère la couleur du centre de l'image
     couleur = getCouleurCentre(img)
+    #On effectue un seuillage avec une marge de 30 au dessus et en dessous
     seuil1= couleur + 30
     seuil2=couleur - 30
 
@@ -128,12 +130,15 @@ def getCouleurCentre(img):
     condition = False
     max = -1
     couleurMax = ""
-    nbCouleur = {}
+    nbCouleur = {} # dictionnaire qui contient les couleurs et le nombre de fois qu'elles apparaissent
+    #On parcourt les pixels du centre de l'image
     for i in range (ycentre-250, ycentre + 250):       # avant : for j
         for j in range (xcentre-250, xcentre + 250):   # avant : for i
             condition = False
 
+            #On regarde si la couleur du pixel est déjà dans le dictionnaire
             for couleur in nbCouleur.keys():
+                #On incrémente la couleur du pixel si elle est proche de la couleur du dictionnaire de +-20
                 if couleur >= img[i,j]-20 and couleur <= img[i,j] + 20 :   # avant : [j,i]
                     nbCouleur[couleur] += 1
                     condition = True
@@ -142,7 +147,7 @@ def getCouleurCentre(img):
             if condition == False  :
                 nbCouleur[img[i,j]] = 1    # avant : [j,i]
 
-
+    #On récupère la couleur la plus présente
     for couleur in nbCouleur.keys():
         
         if nbCouleur[couleur] > max:
@@ -183,13 +188,13 @@ def taux_reussite(img, vt):
 
 def main():
     #SEGMENTATION ET BINARISATION DU TABLEAU-
-    img = pltimg.imread("./Images_Train_et_test/Entrainement_(57)/2.jpg")
+    img = pltimg.imread("./Images_Train_et_test/Entrainement_(57)/0.jpg")
     gris = convGris(img)
     seuilCentre(gris)
     #-
 
     #BINARISATION DE LA VERITE TERRAIN-
-    vt_img = pltimg.imread("./Json/JsonKellian/2VT/label.png")
+    vt_img = pltimg.imread("./Json/JsonKellian/0VT/label.png")
     vt_bin = binarisationVT(vt_img)
     #-
 
