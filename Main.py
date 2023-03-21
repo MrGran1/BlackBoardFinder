@@ -190,7 +190,7 @@ def main():
     #SEGMENTATION ET BINARISATION DU TABLEAU-
     img = pltimg.imread("./Images_Train_et_test/Entrainement_(57)/0.jpg")
     gris = convGris(img)
-    seuilCentre(gris)
+    # seuilCentre(gris)
     #-
 
     #BINARISATION DE LA VERITE TERRAIN-
