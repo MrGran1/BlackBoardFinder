@@ -194,6 +194,8 @@ def main():
     #-
 
     #BINARISATION DE LA VERITE TERRAIN-
+    #./Json/JsonIlan/49VT/label.png
+    #./Json/JsonTigran/23VT/label.png
     vt_img = pltimg.imread("./Json/JsonKellian/0VT/label.png")
     vt_bin = binarisationVT(vt_img)
     #-
