@@ -138,7 +138,7 @@ def getCouleurCentre(img):
 
             #On regarde si la couleur du pixel est déjà dans le dictionnaire
             for couleur in nbCouleur.keys():
-                #On incrémente la couleur du pixel si elle est proche de la couleur du dictionnaire de +-20
+                #On incrémente la couleur du pixel si elle est proche d'und couleur du dictionnaire de +-20
                 if couleur >= img[i,j]-20 and couleur <= img[i,j] + 20 :   # avant : [j,i]
                     nbCouleur[couleur] += 1
                     condition = True
