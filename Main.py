@@ -186,25 +186,66 @@ def taux_reussite(img, vt):
 
 
 
+
+def connexite4(img,imgFinale,coordonnee,listeCoordonnee) : 
+    """listePixel : une liste contenat les pixels déjà visité
+        coordonnée : (i,j) du pixel
+    img ; numpy array de l'image
+    imgFinale : numpy array d'une image noire
+
+    !!!! Faire en linéaire pas en récursif
+    """
+    i,j = coordonnee
+    listeCoordonnee.append((i,j))
+    if img[j][i] == 255 or len(listeCoordonnee) == 0: 
+        imgFinale [j][i] = 255
+
+        if ((i,j+1) not in listeCoordonnee and j<img.shape[0]) :  
+            connexite4(img,imgFinale,(i,j+1),listeCoordonnee)
+
+        if ((i,j-1) not in listeCoordonnee and  j>0) :
+            connexite4(img,imgFinale,(i,j-1),listeCoordonnee)
+
+        if ((i+1,j) not in listeCoordonnee and i<img.shape[1]) :   
+            connexite4(img,imgFinale,(i+1,j),listeCoordonnee)
+
+        if ((i-1,j) not in listeCoordonnee and i>0) :
+            connexite4(img,imgFinale,(i-1,j),listeCoordonnee)
+
+
+
+
+
+
+
+
+
+
+
 def main():
+    
     #SEGMENTATION ET BINARISATION DU TABLEAU-
     img = pltimg.imread("./Images_Train_et_test/Entrainement_(57)/0.jpg")
     gris = convGris(img)
-    # seuilCentre(gris)
+    seuilCentre(gris)
     #-
 
     #BINARISATION DE LA VERITE TERRAIN-
     #./Json/JsonIlan/49VT/label.png
     #./Json/JsonTigran/23VT/label.png
-    vt_img = pltimg.imread("./Json/JsonKellian/0VT/label.png")
+    vt_img = pltimg.imread("/home/tigran/Documents/Travail/Projets/Projet-Image-Suicide-Squad-/All_images/77.jpg")
     vt_bin = binarisationVT(vt_img)
     #-
 
     #AFFICHAGE TAUX DE REUSSITE-
     print("TAUX DE RÉUSSITE :", taux_reussite(gris, vt_bin))
     #-
+    imgFinale = np.zeros((gris.shape[0],gris.shape[1]),dtype = np.uint8)
+    listecoordonnee = []
+    #connexite4(gris,imgFinale,(int(gris.shape[0]/2),int(gris.shape[1]/2)),listecoordonnee)
 
-    plt.imshow(gris, cmap ='gray')
+
+    plt.imshow(imgFinale, cmap ='gray')
     plt.show()
 
 main()
