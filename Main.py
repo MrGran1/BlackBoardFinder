@@ -193,28 +193,34 @@ def connexite4(img,imgFinale,coordonnee,listeCoordonnee) :
     img ; numpy array de l'image
     imgFinale : numpy array d'une image noire
 
-    !!!! Faire en linéaire pas en récursif
     """
-    i,j = coordonnee
-    listeCoordonnee.append((i,j))
-    if img[j][i] == 255 or len(listeCoordonnee) == 0: 
-        imgFinale [j][i] = 255
+    
+    while True:
+        i,j = coordonnee
 
-        if ((i,j+1) not in listeCoordonnee and j<img.shape[0]) :  
-            connexite4(img,imgFinale,(i,j+1),listeCoordonnee)
+        if j<img.shape[0] and (i,j+1) not in listeCoordonnee and not img[i][j+1] == 0:
+            coordonnee = (i,j+1)
+            listeCoordonnee.append(coordonnee)
+            imgFinale[i][j+1] = 255
+        
+        elif j>0 and (i,j-1) not in listeCoordonnee and not img[i][j-1] == 0: 
+            coordonnee = (i,j-1)
+            listeCoordonnee.append(coordonnee)
+            imgFinale[i][j-1] = 255
 
-        if ((i,j-1) not in listeCoordonnee and  j>0) :
-            connexite4(img,imgFinale,(i,j-1),listeCoordonnee)
+        elif i<img.shape[1] and (i+1,j) not in listeCoordonnee and not img[i+1][j] == 0: 
+            coordonnee = (i+1,j)
+            listeCoordonnee.append(coordonnee)
+            imgFinale[i+1][j] = 255
 
-        if ((i+1,j) not in listeCoordonnee and i<img.shape[1]) :   
-            connexite4(img,imgFinale,(i+1,j),listeCoordonnee)
+        
+        elif i>0 and (i-1,j) not in listeCoordonnee and not img[i-1][j] == 0: 
+            coordonnee = (i-1,j)
+            listeCoordonnee.append(coordonnee)
+            imgFinale[i-1][j] = 255
 
-        if ((i-1,j) not in listeCoordonnee and i>0) :
-            connexite4(img,imgFinale,(i-1,j),listeCoordonnee)
-
-
-
-
+        else :
+            break
 
 
 
@@ -225,7 +231,7 @@ def connexite4(img,imgFinale,coordonnee,listeCoordonnee) :
 def main():
     
     #SEGMENTATION ET BINARISATION DU TABLEAU-
-    img = pltimg.imread("./Images_Train_et_test/Entrainement_(57)/0.jpg")
+    img = pltimg.imread("./Images_Train_et_test/Entrainement_(57)/54.jpg")
     gris = convGris(img)
     seuilCentre(gris)
     #-
@@ -242,8 +248,7 @@ def main():
     #-
     imgFinale = np.zeros((gris.shape[0],gris.shape[1]),dtype = np.uint8)
     listecoordonnee = []
-    #connexite4(gris,imgFinale,(int(gris.shape[0]/2),int(gris.shape[1]/2)),listecoordonnee)
-
+    connexite4(gris,imgFinale,(int(gris.shape[0]/2),int(gris.shape[1]/2)),listecoordonnee)
 
     plt.imshow(imgFinale, cmap ='gray')
     plt.show()
