@@ -239,7 +239,7 @@ def main():
     #BINARISATION DE LA VERITE TERRAIN-
     #./Json/JsonIlan/49VT/label.png
     #./Json/JsonTigran/23VT/label.png
-    vt_img = pltimg.imread("/home/tigran/Documents/Travail/Projets/Projet-Image-Suicide-Squad-/All_images/77.jpg")
+    vt_img = pltimg.imread("./Json/JsonIlan/54VT/label.png")
     vt_bin = binarisationVT(vt_img)
     #-
 
