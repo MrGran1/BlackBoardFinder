@@ -251,7 +251,7 @@ def contours(img):
 
     # cv2.imshow("img",imgContour)              #cv2 a des problèmes (énoncé ci dessous) que plt permet de résoudre
     # cv2.waitKey(0)
-    plt.imshow(dilation, cmap = "gray")         #plt permet d'afficher l'image entiere et de la déplacer pour voir les contours 
+    plt.imshow(thresh, cmap = "gray")         #plt permet d'afficher l'image entiere et de la déplacer pour voir les contours 
     # plt.imshow(imgContour)
     plt.show()
     
