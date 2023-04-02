@@ -225,14 +225,13 @@ def connexite4(img,imgFinale,coordonnee,listeCoordonnee) :
 
 def contours(img):
      
-    img=cv2.imread("./Images_Train_et_test/Entrainement_(57)/2.jpg")
+    img=cv2.imread("./Images_Train_et_test/Entrainement_(57)/4.jpg")
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     ret, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_OTSU | cv2.THRESH_BINARY)
     rect_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (18, 18))
     dilation = cv2.dilate(thresh, rect_kernel, iterations = 3)
 
     contours, hierarchy = cv2.findContours(dilation, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
-    im2=img.copy()
     imgContour = cv2.drawContours(img, contours, -1, (255,255,0), 2)
 
     cv2.imshow("img",imgContour)
@@ -249,27 +248,28 @@ def contours(img):
 def main():
     
     #SEGMENTATION ET BINARISATION DU TABLEAU-
-    img = pltimg.imread("./Images_Train_et_test/Entrainement_(57)/2.jpg")
+    img = pltimg.imread("./Images_Train_et_test/Entrainement_(57)/5.jpg")
+    gris = convGris(img)
     contours(img)
-    # gris = convGris(img)
-    # seuilCentre(gris)
-    # #-
+    
+    seuilCentre(gris)
+    #-
 
-    # #BINARISATION DE LA VERITE TERRAIN-
-    # #./Json/JsonIlan/49VT/label.png
-    # #./Json/JsonTigran/23VT/label.png
-    # vt_img = pltimg.imread("./Json/JsonIlan/54VT/label.png")
-    # vt_bin = binarisationVT(vt_img)
-    # #-
+    #BINARISATION DE LA VERITE TERRAIN-
+    #./Json/JsonIlan/49VT/label.png
+    #./Json/JsonTigran/23VT/label.png
+    vt_img = pltimg.imread("./Json/JsonIlan/54VT/label.png")
+    vt_bin = binarisationVT(vt_img)
+    #-
 
-    # #AFFICHAGE TAUX DE REUSSITE-
-    # print("TAUX DE RÉUSSITE :", taux_reussite(gris, vt_bin))
-    # #-
-    # imgFinale = np.zeros((gris.shape[0],gris.shape[1]),dtype = np.uint8)
+    #AFFICHAGE TAUX DE REUSSITE-
+    print("TAUX DE RÉUSSITE :", taux_reussite(gris, vt_bin))
+    #-
+    imgFinale = np.zeros((gris.shape[0],gris.shape[1]),dtype = np.uint8)
     # #listecoordonnee = []
     # #connexite4(gris,imgFinale,(int(gris.shape[0]/2),int(gris.shape[1]/2)),listecoordonnee)
 
-    # plt.imshow(imgFinale, cmap ='gray')
-    # plt.show()
+    plt.imshow(imgFinale, cmap ='gray')
+    plt.show()
 
 main()
