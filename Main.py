@@ -223,19 +223,37 @@ def connexite4(img,imgFinale,coordonnee,listeCoordonnee) :
         else :
             break
 
+# OpenCV (Open Computer Vision) est une bibliothèque graphique. 
+# Elle est spécialisée dans le traitement d’images, que ce soit pour de la photo ou de la vidéo
 def contours(img):
-     
-    img=cv2.imread("./Images_Train_et_test/Entrainement_(57)/4.jpg")
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    ret, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_OTSU | cv2.THRESH_BINARY)
+
+    # convertie l'image couleur en une image en nuance de gris
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)   
+    
+    # Pour réaliser une segmentation binaire avec OpenCV nous utilisons la fonction threshold()
+    # qui prend l'image originale, le seuil, la valeur maximale des pixels et l'attribut THRESH_BINARY en paramètres
+    # all pixels value above 120 will be set to 255
+    ret, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_OTSU | cv2.THRESH_BINARY)  
+
+    # Dilate les éléments blancs de l'image en fonction des 3 nombres ci dessous
     rect_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (18, 18))
-    dilation = cv2.dilate(thresh, rect_kernel, iterations = 3)
+    dilation = cv2.dilate(thresh, rect_kernel, iterations = 3)  
 
+    # C'est avec "dilation" qu'il faudra comparer la verité terrain.
+    # Le reste de cette fonction c'est juste pour bien encadrer l'image en fonction de "dilation" et avoir un meilleur affichage pour l'utilisateur
+
+    # Trouve les contours 
     contours, hierarchy = cv2.findContours(dilation, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
-    imgContour = cv2.drawContours(img, contours, -1, (255,255,0), 2)
 
-    cv2.imshow("img",imgContour)
-    cv2.waitKey(0)
+    #Dessine les contours sur l'image de base à partir de l'image dilatée
+    imgContour = cv2.drawContours(img, contours, -1, (0,255,255), 2)    
+
+
+    # cv2.imshow("img",imgContour)              #cv2 a des problèmes (énoncé ci dessous) que plt permet de résoudre
+    # cv2.waitKey(0)
+    plt.imshow(dilation, cmap = "gray")         #plt permet d'afficher l'image entiere et de la déplacer pour voir les contours 
+    # plt.imshow(imgContour)
+    plt.show()
     
 
 
@@ -248,28 +266,27 @@ def contours(img):
 def main():
     
     #SEGMENTATION ET BINARISATION DU TABLEAU-
-    img = pltimg.imread("./Images_Train_et_test/Entrainement_(57)/5.jpg")
-    gris = convGris(img)
+    img = pltimg.imread("./Images_Train_et_test/Entrainement_(57)/2.jpg")
     contours(img)
-    
-    seuilCentre(gris)
-    #-
+    # gris = convGris(img)
+    # seuilCentre(gris)
+    # #-
 
-    #BINARISATION DE LA VERITE TERRAIN-
-    #./Json/JsonIlan/49VT/label.png
-    #./Json/JsonTigran/23VT/label.png
-    vt_img = pltimg.imread("./Json/JsonIlan/54VT/label.png")
-    vt_bin = binarisationVT(vt_img)
-    #-
+    # #BINARISATION DE LA VERITE TERRAIN-
+    # #./Json/JsonIlan/49VT/label.png
+    # #./Json/JsonTigran/23VT/label.png
+    # vt_img = pltimg.imread("./Json/JsonIlan/54VT/label.png")
+    # vt_bin = binarisationVT(vt_img)
+    # #-
 
-    #AFFICHAGE TAUX DE REUSSITE-
-    print("TAUX DE RÉUSSITE :", taux_reussite(gris, vt_bin))
-    #-
-    imgFinale = np.zeros((gris.shape[0],gris.shape[1]),dtype = np.uint8)
+    # #AFFICHAGE TAUX DE REUSSITE-
+    # print("TAUX DE RÉUSSITE :", taux_reussite(gris, vt_bin))
+    # #-
+    # imgFinale = np.zeros((gris.shape[0],gris.shape[1]),dtype = np.uint8)
     # #listecoordonnee = []
     # #connexite4(gris,imgFinale,(int(gris.shape[0]/2),int(gris.shape[1]/2)),listecoordonnee)
 
-    plt.imshow(imgFinale, cmap ='gray')
-    plt.show()
+    # plt.imshow(imgFinale, cmap ='gray')
+    # plt.show()
 
 main()
