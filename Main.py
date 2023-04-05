@@ -236,8 +236,8 @@ def contours(img):
     ret, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_OTSU | cv2.THRESH_BINARY)  
 
     # Dilate les éléments blancs de l'image en fonction des 3 nombres ci dessous
-    rect_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (18, 18))
-    dilation = cv2.dilate(thresh, rect_kernel, iterations = 3)  
+    rect_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (10, 10))
+    dilation = cv2.dilate(thresh, rect_kernel, iterations = 1)  
 
     # C'est avec "dilation" qu'il faudra comparer la verité terrain.
     # Le reste de cette fonction c'est juste pour bien encadrer l'image en fonction de "dilation" et avoir un meilleur affichage pour l'utilisateur
@@ -246,12 +246,12 @@ def contours(img):
     contours, hierarchy = cv2.findContours(dilation, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
 
     #Dessine les contours sur l'image de base à partir de l'image dilatée
-    imgContour = cv2.drawContours(img, contours, -1, (0,255,255), 2)    
+    imgContour = cv2.drawContours(img, contours, -1, (0,255,255), 3)    
 
 
     # cv2.imshow("img",imgContour)              #cv2 a des problèmes (énoncé ci dessous) que plt permet de résoudre
     # cv2.waitKey(0)
-    plt.imshow(thresh, cmap = "gray")         #plt permet d'afficher l'image entiere et de la déplacer pour voir les contours 
+    plt.imshow(imgContour, cmap = "gray")         #plt permet d'afficher l'image entiere et de la déplacer pour voir les contours 
     # plt.imshow(imgContour)
     plt.show()
     
@@ -266,7 +266,7 @@ def contours(img):
 def main():
     
     #SEGMENTATION ET BINARISATION DU TABLEAU-
-    img = pltimg.imread("./Images_Train_et_test/Entrainement_(57)/2.jpg")
+    img = pltimg.imread("./Images_Train_et_test/Test_(16)/13.jpg")
     contours(img)
     # gris = convGris(img)
     # seuilCentre(gris)
