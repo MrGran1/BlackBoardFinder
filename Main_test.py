@@ -269,9 +269,7 @@ def texteVert(img):
 
     for i in range (img.shape[0]):
         for j in range(img.shape[1]):
-            # if ( (107 <= img[i,j,0] <= 184) and (130 <= img[i,j,1] <= 208) and (161 <= img[i,j,2] <= 242) ): # 1.jpg
-            # if ( (85 <= img[i,j,0] <= 184) and (118 <= img[i,j,1] <= 208) and (107 <= img[i,j,2] <= 242) ): # 2.jpg
-            if ( (107 <= img[i,j,0] <= 184) and (130 <= img[i,j,1] <= 208) and (161 <= img[i,j,2] <= 242) ): # 1.jpg
+            if ( (80 <= img[i,j,0] <= 210) and (90 <= img[i,j,1] <= 230) and (100 <= img[i,j,2] <= 215) ): # 1.jpg
                 n[i,j] = 255
     
     return n
@@ -281,9 +279,7 @@ def texteRouge(img):
 
     for i in range (img.shape[0]):
         for j in range(img.shape[1]):
-            # if ( (107 <= img[i,j,0] <= 184) and (130 <= img[i,j,1] <= 208) and (161 <= img[i,j,2] <= 242) ): # 1.jpg
-            # if ( (85 <= img[i,j,0] <= 184) and (118 <= img[i,j,1] <= 208) and (107 <= img[i,j,2] <= 242) ): # 2.jpg
-            if ( (107 <= img[i,j,0] <= 184) and (130 <= img[i,j,1] <= 208) and (161 <= img[i,j,2] <= 242) ): # 1.jpg
+            if ( (107 <= img[i,j,0] <= 220) and (100 <= img[i,j,1] <= 208) and (100 <= img[i,j,2] <= 190) ): # 1.jpg
                 n[i,j] = 255
     
     return n
@@ -370,6 +366,7 @@ def connexite4texteNonBin(img):
 def main():
     
     #SEGMENTATION ET BINARISATION DU TABLEAU-
+    #./Images_Train_et_test/Entrainement_(57)/23.jpg
     img = pltimg.imread("D:/Dossier_chelou/Users/kelli/Documents/GitHub/Projet-Image-Suicide-Squad-/Images_Train_et_test/Entrainement_(57)/23.jpg")
     # new_img = texteNoir(img)
     new_img = connexite4texteNonBin(img)
@@ -399,7 +396,7 @@ def main():
     # #connexite4(gris,imgFinale,(int(gris.shape[0]/2),int(gris.shape[1]/2)),listecoordonnee)
 
     plt.figure()
-    plt.imshow(new_img, cmap ='gray')
+    plt.imshow(img, cmap ='gray')
     plt.show()
 
 main()
