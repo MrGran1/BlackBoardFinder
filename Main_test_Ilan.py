@@ -265,8 +265,8 @@ def texteBleu(img):
     return n
 
 def texteVert(img):
-    fonce = (80 <= img[i,j,0] <= 210) and (90 <= img[i,j,1] <= 230) and (100 <= img[i,j,2] <= 215)
-    clair = (125 <= img[i,j,0] <= 180) and (145 <= img[i,j,1] <= 200) and (130 <= img[i,j,2] <= 200)
+    fonce = (80 <= img[:,:,0]) & (img[:,:,0] <= 210) & (90 <= img[:,:,1]) &  (img[:,:,1] <= 230) & (100 <= img[:,:,2]) & (img[:,:,2] <= 215)
+    clair = (125 <= img[:,:,0]) & (img[:,:,0] <= 180) & (145 <= img[:,:,1]) & (img[:,:,1] <= 200) & (130 <= img[:,:,2]) & (img[:,:,2] <= 200)
 
     combin = np.logical_or(fonce,clair)
     n = np.zeros_like(img[:,:,0], dtype = np.uint8)
@@ -369,8 +369,8 @@ def main():
     
     #SEGMENTATION ET BINARISATION DU TABLEAU-
     #./Images_Train_et_test/Entrainement_(57)/23.jpg
-    img = pltimg.imread("./Images_Train_et_test/Entrainement_(57)/54.jpg")
-    new_img = texteVertClair(img)
+    img = pltimg.imread("./Images_Train_et_test/Entrainement_(57)/26.jpg")
+    new_img = texteVert(img)
     # new_img = connexite4texteNonBin(img)
     # contours(img)
     # gris = convGris(img)
