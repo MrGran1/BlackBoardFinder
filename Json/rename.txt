@@ -1,0 +1,4 @@
+for i in {29..47}
+do
+	mv ./$i ./$i"VT"
+done

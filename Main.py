@@ -1,5 +1,5 @@
 import numpy as np
-import cv2
+#import cv2
 import matplotlib.image as pltimg
 import matplotlib.pyplot as plt
 
@@ -173,13 +173,17 @@ def binarisationVT(img):
 
 
 def taux_reussite(img, vt):
-    total_pixel = img.shape[0]*img.shape[1]
     pixel_correct = 0
+    total_pixel = 0
 
     for i in range(img.shape[0]):
         for j in range(img.shape[1]):
-            if img[i,j] == vt[i,j] :
+            if img[i,j] ==  255 and vt[i,j] == 255 :
                 pixel_correct +=1
+
+            if img[i,j] == 255 or vt[i,j] == 255:
+                total_pixel += 1
+
 
     taux_reussite = (pixel_correct / total_pixel) * 100
 
@@ -188,40 +192,50 @@ def taux_reussite(img, vt):
 
 
 
-def connexite4(img,imgFinale,coordonnee,listeCoordonnee) : 
+def connexite4(img) : 
     """listePixel : une liste contenat les pixels déjà visité
         coordonnée : (i,j) du pixel
     img ; numpy array de l'image
     imgFinale : numpy array d'une image noire
 
     """
-    
-    while True:
-        i,j = coordonnee
+    coordonnee = (int(img.shape[1]/2),int(img.shape[0]/2))
+    listeCoordonnee = [coordonnee]
+    imgFinale = np.zeros((img.shape[1],img.shape[0]))
+    visite = []
 
-        if j<img.shape[0] and (i,j+1) not in listeCoordonnee and not img[i][j+1] == 0:
-            coordonnee = (i,j+1)
-            listeCoordonnee.append(coordonnee)
+    while len(listeCoordonnee) != 0:
+        i,j = coordonnee
+       # print(i,j)
+        visite.append(coordonnee)
+        listeCoordonnee.pop(0)
+
+        if j<img.shape[0] and (i,j+1) not in visite and not img[i][j+1] == 0:
+            
+            listeCoordonnee.append((i,j+1))
             imgFinale[i][j+1] = 255
         
-        elif j>0 and (i,j-1) not in listeCoordonnee and not img[i][j-1] == 0: 
-            coordonnee = (i,j-1)
-            listeCoordonnee.append(coordonnee)
+        if j>0 and (i,j-1) not in visite and not img[i][j-1] == 0: 
+            
+            listeCoordonnee.append((i,j-1))
             imgFinale[i][j-1] = 255
 
-        elif i<img.shape[1] and (i+1,j) not in listeCoordonnee and not img[i+1][j] == 0: 
-            coordonnee = (i+1,j)
-            listeCoordonnee.append(coordonnee)
+        if i<img.shape[1] and (i+1,j) not in visite and not img[i+1][j] == 0: 
+            
+            listeCoordonnee.append((i+1,j))
             imgFinale[i+1][j] = 255
 
         
-        elif i>0 and (i-1,j) not in listeCoordonnee and not img[i-1][j] == 0: 
-            coordonnee = (i-1,j)
-            listeCoordonnee.append(coordonnee)
+        if i>0 and (i-1,j) not in visite and not img[i-1][j] == 0: 
+            
+            listeCoordonnee.append((i-1,j))
             imgFinale[i-1][j] = 255
 
-        else :
-            break
+        if len(listeCoordonnee) != 0:
+            coordonnee = listeCoordonnee[0]
+
+    return imgFinale
+            
 
 # OpenCV (Open Computer Vision) est une bibliothèque graphique. 
 # Elle est spécialisée dans le traitement d’images, que ce soit pour de la photo ou de la vidéo
@@ -259,34 +273,52 @@ def contours(img):
 
 
 
-
+def comparaison_images ():
+    nbBon = 0
+    nbTotal = 0
+    for i in range (29,34):
+        print (i)
+        if (i!=30):
+            nbTotal += 1
+            img = pltimg.imread("./Images_Train_et_test/Entrainement_(57)/"+ str(i) +".jpg")
+            gris = convGris(img)
+            seuilCentre(gris)
+            vt_img = pltimg.imread("./Json/imagejson/"+ str(i) + "/label.png")
+            vt_bin = binarisationVT(vt_img)
+            if (taux_reussite(gris, vt_bin)>70):
+                nbBon +=1
+        
+    print("Taux de réussite : ", nbBon/nbTotal)
+        
 
 
 
 def main():
     
     #SEGMENTATION ET BINARISATION DU TABLEAU-
-    img = pltimg.imread("./Images_Train_et_test/Test_(16)/13.jpg")
-    contours(img)
-    # gris = convGris(img)
-    # seuilCentre(gris)
+    #img = pltimg.imread("./Images_Train_et_test/Entrainement_(57)/29.jpg")
+    #contours(img)
+    #gris = convGris(img)
+    #seuilCentre(gris)
     # #-
 
     # #BINARISATION DE LA VERITE TERRAIN-
     # #./Json/JsonIlan/49VT/label.png
     # #./Json/JsonTigran/23VT/label.png
-    # vt_img = pltimg.imread("./Json/JsonIlan/54VT/label.png")
-    # vt_bin = binarisationVT(vt_img)
+    #vt_img = pltimg.imread("./Json/imagejson/29/label.png")
+    #vt_bin = binarisationVT(vt_img)
     # #-
 
     # #AFFICHAGE TAUX DE REUSSITE-
-    # print("TAUX DE RÉUSSITE :", taux_reussite(gris, vt_bin))
+    #print("TAUX DE RÉUSSITE :", taux_reussite(gris, vt_bin))
     # #-
     # imgFinale = np.zeros((gris.shape[0],gris.shape[1]),dtype = np.uint8)
     # #listecoordonnee = []
-    # #connexite4(gris,imgFinale,(int(gris.shape[0]/2),int(gris.shape[1]/2)),listecoordonnee)
+    #img_final = connexite4(gris)
 
-    # plt.imshow(imgFinale, cmap ='gray')
-    # plt.show()
+    #plt.imshow(img_final, cmap ='gray')
+    #plt.imshow(gris, cmap ='gray')
 
+    #plt.show()
+    comparaison_images()
 main()
