@@ -265,14 +265,15 @@ def texteBleu(img):
     return n
 
 def texteVert(img):
-    n = np.zeros((img.shape[0],img.shape[1]),dtype = np.uint8)
+    fonce = (80 <= img[i,j,0] <= 210) and (90 <= img[i,j,1] <= 230) and (100 <= img[i,j,2] <= 215)
+    clair = (125 <= img[i,j,0] <= 180) and (145 <= img[i,j,1] <= 200) and (130 <= img[i,j,2] <= 200)
 
-    for i in range (img.shape[0]):
-        for j in range(img.shape[1]):
-            if ( (80 <= img[i,j,0] <= 210) and (90 <= img[i,j,1] <= 230) and (100 <= img[i,j,2] <= 215) ): # 1.jpg
-                n[i,j] = 255
+    combin = np.logical_or(fonce,clair)
+    n = np.zeros_like(img[:,:,0], dtype = np.uint8)
+    n[combin] = 255
     
     return n
+
 
 def texteRouge(img):
     n = np.zeros((img.shape[0],img.shape[1]),dtype = np.uint8)
@@ -351,9 +352,10 @@ def connexite4texteNonBin(img):
 
     for i in range (img.shape[0]):
         for j in range(img.shape[1]):
-            # if ( (107 <= img[i,j,0] <= 184) and (130 <= img[i,j,1] <= 208) and (161 <= img[i,j,2] <= 242) ) : texte blanc
+            # if ( (107 <= img[i,j,0] <= 184) and (130 <= img[i,j,1] <= 208) and (161 <= img[i,j,2] <= 242) ) : # texte blanc
             # if ( (15 <= img[i,j,0] <= 100) and (10 <= img[i,j,1] <= 100) and (6 <= img[i,j,2] <= 100) ) : # texte noir
-            if ( (15 <= img[i,j,0] <= 100) and (10 <= img[i,j,1] <= 100) and (6 <= img[i,j,2] <= 100) ) : # texte noir
+            if ( (107 <= img[i,j,0] <= 184) and (130 <= img[i,j,1] <= 208) and (161 <= img[i,j,2] <= 242) or
+                 (107 <= img[i,j,0] <= 220) and (100 <= img[i,j,1] <= 208) and (100 <= img[i,j,2] <= 190) ) : # texte blanc
                 for k in range(j-4,j+4):
                     if ( (couleur[0]-marge <= image_padded[i,k][0] <= couleur[0]+marge) and (couleur[1]-marge <= image_padded[i,k][1] <= couleur[1]+marge) and (couleur[2]-marge <= image_padded[i,k][2] <= couleur[2]+marge) ):
                         resfinal[i,j] = 255
@@ -367,9 +369,9 @@ def main():
     
     #SEGMENTATION ET BINARISATION DU TABLEAU-
     #./Images_Train_et_test/Entrainement_(57)/23.jpg
-    img = pltimg.imread("D:/Dossier_chelou/Users/kelli/Documents/GitHub/Projet-Image-Suicide-Squad-/Images_Train_et_test/Entrainement_(57)/23.jpg")
-    # new_img = texteNoir(img)
-    new_img = connexite4texteNonBin(img)
+    img = pltimg.imread("./Images_Train_et_test/Entrainement_(57)/54.jpg")
+    new_img = texteVertClair(img)
+    # new_img = connexite4texteNonBin(img)
     # contours(img)
     # gris = convGris(img)
 
@@ -396,7 +398,7 @@ def main():
     # #connexite4(gris,imgFinale,(int(gris.shape[0]/2),int(gris.shape[1]/2)),listecoordonnee)
 
     plt.figure()
-    plt.imshow(img, cmap ='gray')
+    plt.imshow(new_img, cmap ='gray')
     plt.show()
 
 main()
