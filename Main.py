@@ -361,7 +361,7 @@ def comparaison_images ():
 def main():
     
     #SEGMENTATION ET BINARISATION DU TABLEAU-
-    img = pltimg.imread(r"./Images_Train_et_test/Entrainement_(57)/77.jpg")
+    img = pltimg.imread(r"./Images_Train_et_test/Entrainement_(57)/29.jpg")
     # contours(img)
     gris = convGris(img)
     seuilCentre(gris)
