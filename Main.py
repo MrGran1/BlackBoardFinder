@@ -355,21 +355,23 @@ def comparaison_images ():
     nbTotal = 0
     for i in range (29,34):
         print (i)
-        if (i!=30):
-            nbTotal += 1
-            img = pltimg.imread(r"./Images_Train_et_test/Entrainement_(57)/"+ str(i) +".jpg")
-            print("Conversion en gris")
-            gris = convGris(img)
-            print("Binarisation")
-            seuilCentre(gris)
-            print("Conexite 4")
-            gris = connexite4(gris)
-            vt_img = pltimg.imread("./Json/"+ str(i)+"VT" + "/label.png")
-            print("Binarisation VT image")
-            vt_bin = binarisationVT(vt_img)
-            print("Taux de reussite")
-            if (taux_reussite(gris, vt_bin)>70):
-                nbBon +=1
+    
+        nbTotal += 1
+        img = pltimg.imread(r"./Images_Train_et_test/Entrainement_(57)/"+ str(i) +".jpg")
+        print("Conversion en gris")
+        gris = convGris(img)
+        print("Binarisation")
+        seuilCentre(gris)
+        print("Conexite 4")
+        gris = connexite4(gris)
+        vt_img = pltimg.imread("./Json/"+ str(i)+"VT" + "/label.png")
+        print("Binarisation VT image")
+        vt_bin = binarisationVT(vt_img)
+        print("Taux de reussite")
+        taux = taux_reussite(gris, vt_bin)
+        print ("Taux de réussite de l'image " + str(i) + ":" + str(taux))
+        if (taux>70):
+            nbBon +=1
         
     print("Taux de réussite : ", nbBon/nbTotal)
         
