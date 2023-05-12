@@ -57,16 +57,28 @@ def seuil(img,seuil1,seuil2):
     
     """
 
-    if (seuil1 > seuil2):
-        seuil1,seuil2 = seuil2,seuil1
+    # if (seuil1 > seuil2):
+    #     seuil1,seuil2 = seuil2,seuil1
 
-    for x in range(img.shape[0]):
-        for y in range(img.shape[1]):
-            if img[x,y] <= seuil2 and img[x,y] >= seuil1 :
-                img[x,y]= 255
+    # for x in range(img.shape[0]):
+    #     for y in range(img.shape[1]):
+    #         if img[x,y] <= seuil2 and img[x,y] >= seuil1 :
+    #             img[x,y]= 255
             
-            else :
-                img[x,y] = 0
+    #         else :
+    #             img[x,y] = 0
+    import numpy as np
+
+    if seuil1 > seuil2:
+        seuil1, seuil2 = seuil2, seuil1
+
+    # create a boolean mask of pixels within the threshold range
+    mask = (img >= seuil1) & (img <= seuil2)
+
+    # use the mask to set pixel values to 255 or 0
+    img[mask] = 255
+    img[~mask] = 0
+
 
 
 
@@ -345,11 +357,17 @@ def comparaison_images ():
         print (i)
         if (i!=30):
             nbTotal += 1
-            img = pltimg.imread("./Images_Train_et_test/Entrainement_(57)/"+ str(i) +".jpg")
+            img = pltimg.imread(r"./Images_Train_et_test/Entrainement_(57)/"+ str(i) +".jpg")
+            print("Conversion en gris")
             gris = convGris(img)
+            print("Binarisation")
             seuilCentre(gris)
-            vt_img = pltimg.imread("./Json/imagejson/"+ str(i) + "/label.png")
+            print("Conexite 4")
+            gris = connexite4(gris)
+            vt_img = pltimg.imread("./Json/"+ str(i)+"VT" + "/label.png")
+            print("Binarisation VT image")
             vt_bin = binarisationVT(vt_img)
+            print("Taux de reussite")
             if (taux_reussite(gris, vt_bin)>70):
                 nbBon +=1
         
@@ -361,10 +379,10 @@ def comparaison_images ():
 def main():
     
     #SEGMENTATION ET BINARISATION DU TABLEAU-
-    img = pltimg.imread(r"./Images_Train_et_test/Entrainement_(57)/29.jpg")
-    # contours(img)
-    gris = convGris(img)
-    seuilCentre(gris)
+    # img = pltimg.imread(r"./Images_Train_et_test/Entrainement_(57)/29.jpg")
+    # # contours(img)
+    # gris = convGris(img)
+    # seuilCentre(gris)
     # #-
 
     # #BINARISATION DE LA VERITE TERRAIN-
@@ -379,14 +397,13 @@ def main():
     # #-
     # imgFinale = np.zeros((gris.shape[0],gris.shape[1]),dtype = np.uint8)
     # #listecoordonnee = []
-    img_final = connexite4(gris)
+    # img_final = connexite4(gris)
 
     
-    plt.imshow(img_final, cmap ='gray')
-    plt.show()
-    plt.imshow(gris, cmap ='gray')
+    # plt.imshow(img_final, cmap ='gray')
+    # plt.show()
+    
 
-    plt.show()
-    #comparaison_images()
+    comparaison_images()
 main()
  
