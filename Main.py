@@ -2,6 +2,7 @@ import numpy as np
 #import cv2
 import matplotlib.image as pltimg
 import matplotlib.pyplot as plt
+from pathlib import Path
 
 from collections import deque
 
@@ -205,92 +206,6 @@ def taux_reussite(img, vt):
 
 
 
-
-# def connexite4(img) : 
-#     """listePixel : une liste contenat les pixels déjà visité
-#         coordonnée : (i,j) du pixel
-#     img ; numpy array de l'image
-#     imgFinale : numpy array d'une image noire
-
-#     """
-#     coordonnee = (int(img.shape[1]/2),int(img.shape[0]/2))
-#     listeCoordonnee = [coordonnee]
-#     imgFinale = np.zeros((img.shape[1],img.shape[0]))
-#     visite = []
-
-#     while len(listeCoordonnee) != 0:
-#         i,j = coordonnee
-#        # print(i,j)
-#         visite.append(coordonnee)
-#         listeCoordonnee.pop(0)
-
-#         if j<img.shape[0] and (i,j+1) not in visite and not img[i][j+1] == 0:
-            
-#             listeCoordonnee.append((i,j+1))
-#             imgFinale[i][j+1] = 255
-        
-#         if j>0 and (i,j-1) not in visite and not img[i][j-1] == 0: 
-            
-#             listeCoordonnee.append((i,j-1))
-#             imgFinale[i][j-1] = 255
-
-#         if i<img.shape[1] and (i+1,j) not in visite and not img[i+1][j] == 0: 
-            
-#             listeCoordonnee.append((i+1,j))
-#             imgFinale[i+1][j] = 255
-
-        
-#         if i>0 and (i-1,j) not in visite and not img[i-1][j] == 0: 
-            
-#             listeCoordonnee.append((i-1,j))
-#             imgFinale[i-1][j] = 255
-
-#         if len(listeCoordonnee) != 0:
-#             coordonnee = listeCoordonnee[0]
-
-#     return imgFinale
-            
-# def connexite4(img): 
-#     """listePixel : une liste contenat les pixels déjà visité
-#         coordonnée : (i,j) du pixel
-#     img ; numpy array de l'image
-#     imgFinale : numpy array d'une image noire
-
-#     """
-#     coordonnee = (int(img.shape[1]/2),int(img.shape[0]/2))
-#     listeCoordonnee = [coordonnee]
-#     imgFinale = np.zeros((img.shape[1],img.shape[0]))
-#     visite = set()
-
-#     while listeCoordonnee:
-#         i,j = coordonnee
-#        # print(i,j)
-#         visite.add(coordonnee)
-#         listeCoordonnee.pop(0)
-
-#         if j<img.shape[0] and (i,j+1) not in visite and img[i][j+1] != 0:
-#             listeCoordonnee.append((i,j+1))
-#             imgFinale[i][j+1] = 255
-        
-#         if j>0 and (i,j-1) not in visite and img[i][j-1] != 0: 
-#             listeCoordonnee.append((i,j-1))
-#             imgFinale[i][j-1] = 255
-
-#         if i<img.shape[1] and (i+1,j) not in visite and img[i+1][j] != 0: 
-#             listeCoordonnee.append((i+1,j))
-#             imgFinale[i+1][j] = 255
-
-#         if i>0 and (i-1,j) not in visite and img[i-1][j] != 0: 
-#             listeCoordonnee.append((i-1,j))
-#             imgFinale[i-1][j] = 255
-
-#         if listeCoordonnee:
-#             coordonnee = listeCoordonnee[0]
-
-#     return imgFinale
-
-
-
 def connexite4(img):
     h, w = img.shape[:2]
     start = (w // 2, h // 2)
@@ -357,7 +272,7 @@ def comparaison_images ():
         print (i)
     
         nbTotal += 1
-        img = pltimg.imread(r"./Images_Train_et_test/Entrainement_(57)/"+ str(i) +".jpg")
+        img = pltimg.imread(Path("./Images_Train_et_test/Entrainement_(57)/"+ str(i) +".jpg"))
         print("Conversion en gris")
         gris = convGris(img)
         print("Binarisation")
@@ -369,7 +284,7 @@ def comparaison_images ():
         vt_bin = binarisationVT(vt_img)
         print("Taux de reussite")
         taux = taux_reussite(gris, vt_bin)
-        print ("Taux de réussite de l'image " + str(i) + ":" + str(taux))
+        print ("Taux de réussite de l'image " + str(i) + " : " + str(taux))
         if (taux>70):
             nbBon +=1
         
