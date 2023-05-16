@@ -188,6 +188,7 @@ def binarisationVT(img):
 
 
 def taux_reussite(img, vt):
+    """Calcul le taux de réussite de chauqe imge. On utilise la métrique IoU"""
     pixel_correct = 0
     total_pixel = 0
 
@@ -268,23 +269,32 @@ def connexite4(img):
 def comparaison_images ():
     nbBon = 0
     nbTotal = 0
-    for i in range (29,34):
+    tabTest = [3,9,13,18,26,28,35,49,51,52,61,68,69,70,79,80]
+    for i in tabTest:
         print (i)
     
         nbTotal += 1
-        img = pltimg.imread(Path("./Images_Train_et_test/Entrainement_(57)/"+ str(i) +".jpg"))
+
+        img = pltimg.imread(Path("./Images_Train_et_test/Test_(16)/"+ str(i) +".jpg"))
+
         print("Conversion en gris")
         gris = convGris(img)
+
         print("Binarisation")
         seuilCentre(gris)
+
         print("Conexite 4")
         gris = connexite4(gris)
+
         vt_img = pltimg.imread("./Json/"+ str(i)+"VT" + "/label.png")
         print("Binarisation VT image")
+
         vt_bin = binarisationVT(vt_img)
         print("Taux de reussite")
+
         taux = taux_reussite(gris, vt_bin)
         print ("Taux de réussite de l'image " + str(i) + " : " + str(taux))
+
         if (taux>70):
             nbBon +=1
         
