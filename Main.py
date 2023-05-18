@@ -276,7 +276,7 @@ def comparaison_images ():
     
         nbTotal += 1
 
-        img = pltimg.imread(Path("./Images_Train_et_test/Test_(16)/"+ str(i) +".jpg"))
+        
 
         print("Conversion en gris")
         gris = convGris(img)
@@ -288,12 +288,13 @@ def comparaison_images ():
         gris = connexite4(gris)
 
         vt_img = pltimg.imread("./Json/"+ str(i)+"VT" + "/label.png")
+
         print("Binarisation VT image")
-
         vt_bin = binarisationVT(vt_img)
-        print("Taux de reussite")
 
+        print("Taux de reussite")
         taux = taux_reussite(gris, vt_bin)
+        
         print ("Taux de réussite de l'image " + str(i) + " : " + str(taux))
         file.write("Taux de réussite de l'image " + str(i) + " : " + str(taux) + "\n")
 

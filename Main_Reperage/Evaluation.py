@@ -97,24 +97,25 @@ def taux_reussiteV2(img, vt):
 def comparaison_images ():
     nbBon = 0
     nbTotal = 0
-    for i in range (29,34):
+    tabTest = [3,9,13,18,26,28,35,49,51,52,61,68,69,70,79,80]
+    file = open("resultat.txt",'a')
+    for i in tabTest:
+        # Repérage + comparaison VT
         print (i)
-    
         nbTotal += 1
-        img = pltimg.imread(r"./Images_Train_et_test/Entrainement_(57)/"+ str(i) +".jpg")
-        print("Conversion en gris")
-        gris = convGris(img)
-        print("Binarisation")
-        seuilCentre(gris)
-        print("Conexite 4")
-        gris = connexite4(gris)
+        gris = reperage_tab(i,"Test")
         vt_img = pltimg.imread("./Json/"+ str(i)+"VT" + "/label.png")
         print("Binarisation VT image")
         vt_bin = binarisationVT_tableau(vt_img)
         print("Taux de reussite")
         taux = taux_reussiteV2(gris, vt_bin)
         print ("Taux de réussite de l'image " + str(i) + ":" + str(taux))
+        file.write("Taux de réussite de l'image " + str(i) + " : " + str(taux) + "\n")
+
         if (taux>70):
             nbBon +=1
-        
+    file.write("Taux de réussite finale : " + str(nbBon/nbTotal))
+    file.close()
     print("Taux de réussite : ", nbBon/nbTotal)
+
+comparaison_images()

@@ -1,4 +1,7 @@
 import numpy as np
+import matplotlib.image as pltimg
+import matplotlib.pyplot as plt
+from pathlib import Path
 
 from collections import deque
 from Fonctions_de_base import *
@@ -81,6 +84,9 @@ def connexite4(img):
 
 
 
+
+
+
 def boucheurDeTrou(bin):
     """ Colorie le maximum de partie noir du tableau en blanc
 
@@ -114,3 +120,27 @@ def boucheurDeTrou(bin):
                 if (ind1 and ind2):
                     resfinal[i,j] = 255
     return resfinal
+
+
+def reperage_tab(num_img,test_ou_train):
+    """prend en entrée le numéro d'une image
+        retourne : image binariser avec le tableau en blanc
+    """
+    if test_ou_train == "Test":
+        img = pltimg.imread(Path("./Images_Train_et_test/Test_(16)/"+ str(num_img) +".jpg"))
+    
+    else :
+        img = pltimg.imread(Path("./Images_Train_et_test/Entrainement_(57)/"+ str(num_img) +".jpg"))
+
+    print("Conversion en gris")
+    gris = convGris(img)
+
+    print("Binarisation")
+    seuilCentre(gris)
+
+    print("Conexite 4")
+    gris = connexite4(gris)
+
+    gris = boucheurDeTrou(gris)
+    return gris
+

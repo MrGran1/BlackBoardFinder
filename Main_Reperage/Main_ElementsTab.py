@@ -9,27 +9,8 @@ from Reperage_Tableau import *
 from Reperage_Elements_Tab import *
 from Evaluation import *
 
-def comparaison_image(num_image):
-    img = pltimg.imread("D:/Dossier_chelou/Users/kelli/Documents/GitHub/Projet-Image-Suicide-Squad-/Images_Train_et_test/Entrainement_(57)/" + str(num_image) + ".jpg")
-    vt_img = pltimg.imread("D:/Dossier_chelou/Users/kelli/Documents/GitHub/Projet-Image-Suicide-Squad-/Json/" + str(num_image) + "VT/label.png")
-    #1 Repérage tableau de l'image
-    print("Conversion en gris (en cours...)")
-    tab = convGris(img)
-    print("Binarisation (en cours...)")
-    seuilCentre(tab)
-    print("Conexite 4 (en cours...)")
-    tab = connexite4(tab)
-    print("Boucher Trou")
-    boucheurDeTrou(tab)
-
 
 def main():
-
-    for i in 
-    i = 60
-    
-
-    
 
     #2 Repérage éléments blancs du tableau avec le seuillage
     elemV1 = seuilTexteBlanc(img)
