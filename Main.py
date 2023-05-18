@@ -267,6 +267,7 @@ def connexite4(img):
 
 
 def comparaison_images ():
+    file = open("resultat.txt",'a')
     nbBon = 0
     nbTotal = 0
     tabTest = [3,9,13,18,26,28,35,49,51,52,61,68,69,70,79,80]
@@ -294,11 +295,15 @@ def comparaison_images ():
 
         taux = taux_reussite(gris, vt_bin)
         print ("Taux de réussite de l'image " + str(i) + " : " + str(taux))
+        file.write("Taux de réussite de l'image " + str(i) + " : " + str(taux) + "\n")
 
         if (taux>70):
             nbBon +=1
         
-    print("Taux de réussite : ", nbBon/nbTotal)
+    print("Taux de réussite : ", str(nbBon/nbTotal))
+    file.write("Taux de réussite finale : " + str(nbBon/nbTotal))
+    file.close()
+   
         
 
 
