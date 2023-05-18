@@ -54,16 +54,6 @@ def seuil(img,seuil1,seuil2):
     
     """
 
-    # if (seuil1 > seuil2):
-    #     seuil1,seuil2 = seuil2,seuil1
-
-    # for x in range(img.shape[0]):
-    #     for y in range(img.shape[1]):
-    #         if img[x,y] <= seuil2 and img[x,y] >= seuil1 :
-    #             img[x,y]= 255
-            
-    #         else :
-    #             img[x,y] = 0
     import numpy as np
 
     if seuil1 > seuil2:

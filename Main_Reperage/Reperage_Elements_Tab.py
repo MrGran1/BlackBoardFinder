@@ -1,42 +1,6 @@
 import numpy as np
 
 
-# def connexite4texteNonBin(img):
-#     """ Prend une image avec un tableau, 
-#     et renvoie une autre image avec seulement le texte en blanc
-
-#     param : 
-#     img : image dont on vous rendre le texte blanc et le reste noir
-#     """
-#     image_padded = np.zeros((img.shape[0] + 8, img.shape[1] + 8, 3), dtype = np.uint8)
-#     image_padded[4 : -4, 4: -4,0]= img[:,:,0] # [:,:,0] on peut faire cette manip, qd ya 3 canaux au lieu de 1, quand on met une image en niveau de gris seulement mettre 2 canaux. Faut que j'essaye de le faire d'ailleurs
-#     image_padded[4 : -4, 4: -4,1] = img[:,:,1]
-#     image_padded[4 : -4, 4: -4,2] = img[:,:,2]
-
-#     resfinal = np.zeros((img.shape[0] + 8, img.shape[1] + 8), dtype = np.uint8)
-#     marge = 60
-#     couleur = getCouleurCentreKellian(img)
-
-#     for i in range (img.shape[0]):
-#         for j in range(img.shape[1]):
-#             # if ( (50 <= img[i,j,0] <= 120) and (50 <= img[i,j,1] <= 130) and (110 <= img[i,j,2] <= 140) ) : #TEXTE BLEU
-#             # if ( (107 <= img[i,j,0] <= 184) and (130 <= img[i,j,1] <= 208) and (161 <= img[i,j,2] <= 242) ) : #TEXTE BLANC
-#             # if ( (15 <= img[i,j,0] <= 100) and (10 <= img[i,j,1] <= 100) and (6 <= img[i,j,2] <= 100) ) : #TEXTE NOIR
-#             if ( (107 <= img[i,j,0] <= 184) and (130 <= img[i,j,1] <= 208) and (161 <= img[i,j,2] <= 242) ) : #TEXTE BLANC
-#                 for k in range(j-4,j+4):
-#                     if ( (couleur[0]-marge <= image_padded[i,k][0] <= couleur[0]+marge) and (couleur[1]-marge <= image_padded[i,k][1] <= couleur[1]+marge) and (couleur[2]-marge <= image_padded[i,k][2] <= couleur[2]+marge) ):
-#                         resfinal[i,j] = 255
-#                         break
-#                 for l in range(i-4,i+4):
-#                     if ( (couleur[0]-marge <= image_padded[l,j][0] <= couleur[0]+marge) and (couleur[1]-marge <= image_padded[l,j][1] <= couleur[1]+marge) and (couleur[2]-marge <= image_padded[l,j][2] <= couleur[2]+marge) ) :
-#                         resfinal[i,j] = 255
-#                         break
-
-#     return resfinal
-
-
-
-
 
 
 def connexite4texteBin(bin):

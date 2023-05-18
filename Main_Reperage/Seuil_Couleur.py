@@ -145,19 +145,8 @@ def seuilTexteVert(img):
     """ Renvoie l'image donnée en paramètre en remplaçant les pixels considérés comme vert par 255 et le reste à 0
 
     param : 
-    img : image sur laquelle on veut seulement afficher le texte vert
-    """
-    # n = np.zeros((img.shape[0],img.shape[1]),dtype = np.uint8)
-
-    # for i in range (img.shape[0]):
-    #     for j in range(img.shape[1]):
-    #         if ( (48 <= img[i,j,0] <= 65) and (76 <= img[i,j,1] <= 93) and (68 <= img[i,j,2] <= 79)           #VERT NORMAL
-    #             or (69 <= img[i,j,0] <= 95) and (101 <= img[i,j,1] <= 110) and (86 <= img[i,j,2] <= 103) 
-    #             or (97 <= img[i,j,0] <= 110) and (120 <= img[i,j,1] <= 130) and (108 <= img[i,j,2] <= 120)):   #VERT CLAIR
-    #             n[i,j] = 255
-    
-    # return n
-
+    img : image sur laquelle on veut seulement afficher le texte vert"""
+  
     # conditions à appliquer
     cond1 = (48 <= img[:,:,0]) & ( img[:,:,0] <= 65) & (76 <= img[:,:,1]) & (img[:,:,1] <= 93) & (68 <= img[:,:,2]) & (img[:,:,2] <= 79) 
     cond2 = (69 <= img[:,:,0]) & (img[:,:,0] <= 95) & (101 <= img[:,:,1]) & (img[:,:,1] <= 110) & (86 <= img[:,:,2]) & (img[:,:,2] <= 103)
