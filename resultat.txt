@@ -15,4 +15,22 @@ Taux de réussite de l'image 69 : 76.36175465891027
 Taux de réussite de l'image 70 : 48.17009533838545
 Taux de réussite de l'image 79 : 84.96480204933347
 Taux de réussite de l'image 80 : 26.903414725439585
-Taux de réussite : 0.625
+Taux de réussite : 0.625Taux de réussite de l'image 3 : 91.0176372379743
+Taux de réussite de l'image 9 : 68.14203672711433
+Taux de réussite de l'image 13 : 85.49286468159409
+Taux de réussite de l'image 18 : 84.65852217831484
+Taux de réussite de l'image 26 : 84.65020323748973
+Taux de réussite de l'image 28 : 61.34431689524151
+Taux de réussite de l'image 49 : 92.95148753862361
+Taux de réussite de l'image 51 : 72.43435084795917
+Taux de réussite de l'image 52 : 94.91919560322354
+Taux de réussite de l'image 61 : 85.49955397268192
+Taux de réussite de l'image 68 : 88.40464199065747
+Taux de réussite de l'image 69 : 81.55138464679351
+Taux de réussite de l'image 70 : 48.54305068298873
+Taux de réussite de l'image 79 : 87.55598290159912
+Taux de réussite de l'image 80 : 27.5388944763722
+Taux de réussite finale : 0.7333333333333333Taux de réussite de l'image 3 : 91.0176372379743
+Taux de réussite de l'image 9 : 68.14203672711433
+Taux de réussite de l'image 13 : 85.49286468159409
+Taux de réussite de l'image 18 : 84.65852217831484

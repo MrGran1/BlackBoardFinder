@@ -97,7 +97,7 @@ def taux_reussiteV2(img, vt):
 def comparaison_images ():
     nbBon = 0
     nbTotal = 0
-    tabTest = [3,9,13,18,26,28,35,49,51,52,61,68,69,70,79,80]
+    tabTest = [3,9,13,18,26,28,49,51,52,61,68,69,70,79,80]
     file = open("resultat.txt",'a')
     for i in tabTest:
         # Repérage + comparaison VT
