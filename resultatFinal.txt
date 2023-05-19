@@ -1,0 +1,16 @@
+Taux de r�ussite de l'image 3 : 80.73878230477783
+Taux de r�ussite de l'image 9 : 41.4043797566673
+Taux de r�ussite de l'image 13 : 66.72915526772927
+Taux de r�ussite de l'image 18 : 65.2326591604912
+Taux de r�ussite de l'image 26 : 77.22369491912931
+Taux de r�ussite de l'image 28 : 51.844533200572066
+Taux de r�ussite de l'image 49 : 67.03767379196664
+Taux de r�ussite de l'image 51 : 60.23385750033318
+Taux de r�ussite de l'image 52 : 57.94358882614681
+Taux de r�ussite de l'image 61 : 68.94929035348943
+Taux de r�ussite de l'image 68 : 69.88846910570086
+Taux de r�ussite de l'image 69 : 64.00885860399399
+Taux de r�ussite de l'image 70 : 29.68515317255647
+Taux de r�ussite de l'image 79 : 70.15187017834732
+Taux de r�ussite de l'image 80 : 9.19016109907848
+Taux de r�ussite finale : 0.6666666666666666
