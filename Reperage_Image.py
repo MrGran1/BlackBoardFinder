@@ -1,7 +1,9 @@
 import numpy as np
-import cv2
 
 from Reperage_Tableau import *
+
+
+
 
 def reperageImage(i, dilatation, img):
     """

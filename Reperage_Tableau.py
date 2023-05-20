@@ -1,10 +1,11 @@
-import numpy as np
 import matplotlib.image as pltimg
-import matplotlib.pyplot as plt
-from pathlib import Path
 
+from pathlib import Path
 from collections import deque
 from Fonctions_de_base import *
+
+
+
 
 def seuilCentre(img):
     """ Effectue un seuillage sur une image en fonction de la moyenne des pixels du centre de l'image
@@ -18,6 +19,40 @@ def seuilCentre(img):
     seuil2=couleur - 30
 
     seuil(img,seuil1,seuil2)
+
+
+
+
+def seuilCentre_Plus_DonneCouleur(img):
+    """ Effectue un seuillage sur une image en fonction de la moyenne des pixels du centre de l'image
+    param :
+    img : numpy array qui represente une image
+    """
+    #On récupère la couleur du centre de l'image
+    couleur = getCouleurCentre(img)
+    print("Couleur centrale de cette image : " + str(couleur) )
+    #On effectue un seuillage avec une marge de 30 au dessus et en dessous
+    seuil1= couleur + 30
+    seuil2=couleur - 30
+
+    seuil(img,seuil1,seuil2)
+
+    return couleur
+
+
+
+
+def DonneCouleurCentre(img):
+    """ Renvoie la moyenne des pixels du centre de l'image
+    param :
+    img : numpy array qui represente une image
+    """
+    #On récupère la couleur du centre de l'image
+    couleur = getCouleurCentre(img)
+    print("Couleur centrale de cette image : " + str(couleur) )
+
+    return couleur
+
 
 
 
@@ -84,9 +119,6 @@ def connexite4(img):
 
 
 
-
-
-
 def boucheurDeTrou(bin):
     """ Colorie le maximum de partie noir du tableau en blanc
 
@@ -122,6 +154,8 @@ def boucheurDeTrou(bin):
     return resfinal
 
 
+
+
 def reperage_tab(num_img,test_ou_train):
     """prend en entrée le numéro d'une image
         retourne : image binariser avec le tableau en blanc
@@ -132,13 +166,13 @@ def reperage_tab(num_img,test_ou_train):
     else :
         img = pltimg.imread(Path("./Images_Train_et_test/Entrainement_(57)/"+ str(num_img) +".jpg"))
 
-    print("Conversion en gris")
+    print("Conversion en gris (en cours...)")
     gris = convGris(img)
 
-    print("Binarisation")
+    print("Binarisation (en cours...)")
     seuilCentre(gris)
 
-    print("Conexite 4")
+    print("Conexite 4 (en cours...)")
     gris = connexite4(gris)
 
     gris = boucheurDeTrou(gris)

@@ -3,7 +3,7 @@ import numpy as np
 
 
 
-def connexite4texteBin(bin):
+def Transformation_ElemNoirsDuTab_EnBlancs(bin):
     """ Prend une image binarisée avec un tableau en blanc et son texte en noir, 
     et renvoie une autre image avec seulement le texte en blanc
 
@@ -29,29 +29,12 @@ def connexite4texteBin(bin):
 
 
 
-def connexite4texteBin_GPT(bin):
-    h, w = bin.shape
-    image_padded = np.pad(bin, ((4, 4), (4, 4)), mode='constant')
-    resfinal = np.zeros((h + 8, w + 8), dtype=np.uint8)
 
-    for i in range(h):
-        for j in range(w):
-            if bin[i, j] == 0:
-                if np.any(image_padded[i, j-4:j+4] == 255):
-                    resfinal[i, j] = 255
-                elif np.any(image_padded[i-4:i+4, j] == 255):
-                    resfinal[i, j] = 255
-
-    return resfinal
-
-
-
-
-def RepElemsBlancsAmelio(Tab, Elements):
+def Suppresion_ElementsHorsTableau(Tab, Elements):
     """ Repere les elements final en fonction du tableau detecté
 
     param : 
-    Tab : Detection du tableau avec la 4 connexité de Tigran (Cette image à 4 pixels en plus de chaque côté)
+    Tab : Detection du tableau avec la 4 connexité
     Elements : La detection des elements seulement avec le seuillage
 
     """

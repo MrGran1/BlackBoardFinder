@@ -26,6 +26,7 @@ def comparerPixel(img,pixel1,pixel2):
 
 
 
+
 def convGris(img):
     """Convertit une image en niveau de gris
     param : 
@@ -46,6 +47,7 @@ def convGris(img):
 
 
 
+
 def seuil(img,seuil1,seuil2):
     """Effectue un seuillage sur une image 
     param : 
@@ -53,8 +55,6 @@ def seuil(img,seuil1,seuil2):
     seuil 1/2 : seuil entre lequel les pixels seront blanc 
     
     """
-
-    import numpy as np
 
     if seuil1 > seuil2:
         seuil1, seuil2 = seuil2, seuil1
@@ -65,6 +65,7 @@ def seuil(img,seuil1,seuil2):
     # use the mask to set pixel values to 255 or 0
     img[mask] = 255
     img[~mask] = 0
+
 
 
     
@@ -79,6 +80,7 @@ def griserPixel(img,pixel):
     x,y = pixel
     for i in range(3):
         img[x][y][i] = 0.5*img[x][y][i] 
+
 
 
 
