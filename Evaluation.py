@@ -273,7 +273,13 @@ def Eval(nom_fichier,ref_taux,nb_Eval):
 
         # BINARISATION VT
         print("Binarisation VT image (en cours...)")
-        vt_bin = binarisationVT_elements(vt_img)
+        
+        if (nb_Eval == 1):
+            vt_bin = binarisationVT_tableau(vt_img)
+        elif(nb_Eval == 2 or nb_Eval == 3):
+            vt_bin = binarisationVT_elements(vt_img)
+        else :
+            vt_bin = binarisationVT_tableauMax(vt_img)
 
         # TAUX DE REUSSITE
         print("Taux de reussite (en cours...)")
