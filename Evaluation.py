@@ -251,8 +251,7 @@ def Eval(nom_fichier,ref_taux,nb_Eval):
     nbBon = 0
     nbTotal = 0
     fct = 0
-    # tabTest = [3,9,13,18,26,28,35,49,51,52,61,68,69,70,79,80]
-    tabTest = [3,9,51,52]
+    tabTest = [3,9,13,18,26,28,35,49,51,52,61,68,69,70,79,80]
 
     for i in tabTest:
         print ("image : " + str(i))
