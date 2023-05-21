@@ -192,7 +192,7 @@ def fct_Eval_Elements_2(img):
     print("Conversion en gris (en cours...)")
     tab = convGris(img)
     print("Binarisation (en cours...)")
-    couleur = seuilCentre_Plus_DonneCouleur(tab)
+    seuilCentre(tab)
     print("Conexite 4 (en cours...)")
     tab = connexite4(tab)
 
