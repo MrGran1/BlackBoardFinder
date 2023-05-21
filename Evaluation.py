@@ -151,6 +151,9 @@ def fct_Eval_Tableau(img):
     print("Conexite 4 (en cours...)")
     gris = connexite4(gris)
 
+    print("Boucheur de trou (en cours...)")
+    boucheurDeTrou(gris)
+
     return gris
 
 
