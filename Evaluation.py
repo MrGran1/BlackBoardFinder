@@ -171,7 +171,7 @@ def fct_Eval_Elements_1(img):
     #2 Repérage éléments du tableau avec le seuillage
     if (couleur < 125): #Tableau bleu/vert
         
-        elemV1 = seuil_ElementsBlancs(img)
+        elemV1 = seuil_ElementsTableauFonce(img)
     
     else : #Tableau Blanc
         elemV1 = seuil_ElementsTableauBlanc(img)
@@ -223,7 +223,7 @@ def fct_Eval_TableauPlusElements(img,i):
     couleur = DonneCouleurCentre(tab)
 
     if (couleur < 125): #Tableau bleu/vert
-        elemV1 = seuil_ElementsBlancs(img)
+        elemV1 = seuil_ElementsTableauFonce(img)
     else :               #Tableau Blanc
         elemV1 = seuil_ElementsTableauBlanc(img)
 

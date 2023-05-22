@@ -3,7 +3,7 @@ import numpy as np
 
 
 
-def seuil_ElementsBlancs(img):
+def seuil_ElementsTableauFonce(img):
     """ Renvoie l'image donnée en paramètre en remplaçant les pixels considérés comme blanc par 255 et le reste à 0
 
     param : 
